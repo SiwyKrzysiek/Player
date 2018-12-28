@@ -6,12 +6,12 @@ std::vector<std::pair<int, int>> Parser::parseObstacleList(const std::string &li
 {
 	vector<pair<int, int>> result;
 
-	const regex fullPattern("(\\{[[:digit:]];[[:digit:]]\\},){0,}\\{[[:digit:]];[[:digit:]]\\}");
+	const regex fullPattern("(\\{[[:digit:]]+;[[:digit:]]+\\},){0,}\\{[[:digit:]]+;[[:digit:]]+\\}");
 
 	if (!regex_match(list, fullPattern))
 		throw invalid_argument("Wrong format");
 
-	const regex pointPattern("\\{[[:digit:]];[[:digit:]]\\}");
+	const regex pointPattern("\\{[[:digit:]]+;[[:digit:]]+\\}");
 
 	smatch match;
 	string::const_iterator searchStart(list.cbegin());
@@ -48,6 +48,22 @@ std::pair<int, int> Parser::parsePoint(const std::string& point)
 
 	//if (!stream.eof())
 	//	throw invalid_argument("Encountered characters after }");
+
+	return result;
+}
+
+std::pair<std::pair<int, int>, std::pair<int, int>> Parser::parseMove(const std::string& move)
+{
+	const regex pattern("(\\{[[:digit:]]+;[[:digit:]]+\\}),(\\{[[:digit:]]+;[[:digit:]]\\})");
+	smatch match;
+
+	if (!regex_match(move.begin(), move.end(), match, pattern))
+		throw invalid_argument("Invalid move format");
+
+	std::pair<std::pair<int, int>, std::pair<int, int>> result;
+
+	result.first = parsePoint(match[1]);
+	result.second = parsePoint(match[2]);
 
 	return result;
 }

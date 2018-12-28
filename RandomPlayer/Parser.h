@@ -12,4 +12,5 @@ class Parser
 public:
 	static std::vector<std::pair<int, int>> parseObstacleList(const std::string &list);
 	static std::pair<int, int> parsePoint(const std::string &point);
+	static std::pair<std::pair<int, int>, std::pair<int, int>> parseMove(const std::string& move);
 };

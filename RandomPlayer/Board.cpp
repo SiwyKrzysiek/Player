@@ -13,7 +13,14 @@ Board::Board(const int size) : size(size)
 
 Board::Board(const Board& board) : Board(board.getSize())
 {
-	this->fields = vector<vector<bool>>(this->fields);
+	for (int r = 0; r < size; r++)
+	{
+		for (int c=0; c < size; c++)
+		{
+			if (board.fields[r][c])
+				this->fields[r][c] = true;
+		}
+	}
 }
 
 void Board::takeSpot(const int x, const int y)

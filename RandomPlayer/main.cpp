@@ -39,7 +39,9 @@ int main()
 			cin >> enemyMove;
 			player.registerMove(enemyMove);
 
+#ifdef _DEBUG
 			cout << player.getBoard().toString() << endl;
+#endif
 		}
 	}
 	catch (NoMovePossible e)

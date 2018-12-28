@@ -67,3 +67,19 @@ std::pair<std::pair<int, int>, std::pair<int, int>> Parser::parseMove(const std:
 
 	return result;
 }
+
+std::string Parser::pointToString(const std::pair<int, int>& point)
+{
+	stringstream result;
+	result << "{" << point.first << ";" << point.second << "}";
+
+	return result.str();
+}
+
+std::string Parser::moveToString(const std::pair<std::pair<int, int>, std::pair<int, int>>& move)
+{
+	stringstream result;
+	result << pointToString(move.first) << "," << pointToString(move.second);
+
+	return result.str();
+}

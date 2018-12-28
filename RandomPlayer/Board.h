@@ -22,7 +22,7 @@ public:
 	void takeSpot(const int row, const int column);
 	void takeSpot(const std::pair<int, int> point) { takeSpot(point.first, point.second); }
 	void takeManySpots(const std::vector<std::pair<int, int>> points);
-	bool checkSpot(int row, int column) { return fields[row][column]; }
+	bool checkSpot(int x, int y);
 	std::string toString() const;
 	Board clone() const;
 };

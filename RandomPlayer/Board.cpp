@@ -42,6 +42,16 @@ void Board::takeManySpots(const std::vector<std::pair<int, int>> points)
 	}
 }
 
+bool Board::checkSpot(int x, int y)
+{
+	if (x == 0)
+		x = size;
+	if (y == 0)
+		y = size;
+
+	return fields.at(y - 1).at(x - 1);
+}
+
 std::string Board::toString() const
 {
 	stringstream result;

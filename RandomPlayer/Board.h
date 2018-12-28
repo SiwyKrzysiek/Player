@@ -14,8 +14,13 @@ private:
 
 public:
 	Board(const int size);
+	Board(const Board& board);
+
+	int getSize() const { return size; }
 
 	void takeSpot(const int row, const int column);
-	void takeSpot(const std::pair<int, int> point);
+	void takeSpot(const std::pair<int, int> point) { takeSpot(point.first, point.second); }
+	void takeManySpots(const std::vector<std::pair<int, int>> points);
 	std::string toString() const;
+	Board clone() const;
 };

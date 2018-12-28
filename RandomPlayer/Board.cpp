@@ -11,20 +11,28 @@ Board::Board(const int size) : size(size)
 	}
 }
 
-void Board::takeSpot(const int row, const int column)
+Board::Board(const Board& board) : Board(board.getSize())
 {
-	if (row >= size && column >= size)
-		throw invalid_argument("Point with given coordinates doesn't exist");
-
-	if (fields[row][column])
-		throw invalid_argument("This spot is already taken");
-
-	fields[row][column] = true;
+	this->fields = vector<vector<bool>>(this->fields);
 }
 
-void Board::takeSpot(const std::pair<int, int> point)
+void Board::takeSpot(const int x, const int y)
 {
-	takeSpot(point.first, point.second);
+	if (x < 1 || y < 1 || x > size || y > size)
+		throw invalid_argument("Point with given coordinates doesn't exist");
+
+	if (fields[y-1][x-1])
+		throw invalid_argument("This spot is already taken");
+
+	fields[y-1][x-1] = true;
+}
+
+void Board::takeManySpots(const std::vector<std::pair<int, int>> points)
+{
+	for (const auto &point : points)
+	{
+		takeSpot(point);
+	}
 }
 
 std::string Board::toString() const
@@ -41,4 +49,12 @@ std::string Board::toString() const
 	}
 
 	return move(result.str());
+}
+
+Board Board::clone() const
+{
+	Board copy(size);
+	copy.fields = vector<vector<bool>>(this->fields);
+
+	return copy;
 }
